@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="mobile-web-app-capable" content="yes">
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="lib/onsen/css/onsenui.css"/>
+		<link rel="stylesheet" href="lib/onsen/css/onsen-css-components.css"/>
+		<link rel="stylesheet" href="css/index.css" />
+		<script src="lib/onsen/js/angular/angular.js"></script>
+		<script src="lib/onsen/js/onsenui.js"></script>
+        
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <title>Business System</title>
+    </head>
+    <body>
+    	<ons-tabbar hide-tabs="hgoe">
+      <ons-tab page="mbloc.html" active="true">
+        <ons-icon icon="fa fa-globe"></ons-icon>
+      </ons-tab>
+
+      <ons-tab page="empty.html">
+        <ons-icon icon="fa fa-area-chart"></ons-icon>
+      </ons-tab>
+
+      <ons-tab page="page.html">
+        <ons-icon icon="fa fa-cogs"></ons-icon>
+      </ons-tab>
+
+      <ons-tab>
+        <ons-icon icon="fa fa-puzzle-piece"></ons-icon>
+      </ons-tab>
+
+      <ons-tab>
+        <ons-icon icon="fa fa-check-circle-o"></ons-icon>
+      </ons-tab>
+
+      <ons-tab>
+        <ons-icon icon="fa fa-question-circle"></ons-icon>
+      </ons-tab>
+
+      <ons-tab>
+        <ons-icon icon="fa fa-comment-o"></ons-icon>
+      </ons-tab>
+
+    </ons-tabbar>
+    
+	<ons-template id="mbloc.html">
+	<ons-tabbar position="top">
+      <ons-tab page="inicio.html">
+        <ons-icon icon="fa fa-list"></ons-icon>
+      </ons-tab>
+      <ons-tab page="inicio.html" active="true">
+        <ons-icon icon="fa fa-graduation-cap"></ons-icon>
+      </ons-tab>
+      <ons-tab page="inicio.html">
+        <ons-icon icon="fa fa-film"></ons-icon>
+      </ons-tab>
+      <ons-tab page="inicio.html">
+        <ons-icon icon="fa fa-file-powerpoint-o"></ons-icon>
+      </ons-tab>
+      <ons-tab page="inicio.html">
+        <ons-icon icon="fa fa-book"></ons-icon>
+      </ons-tab>
+      <ons-tab page="inicio.html">
+        <ons-icon icon="fa fa-search"></ons-icon>
+      </ons-tab>
+
+    </ons-tabbar>
+		<ons-template id="inicio.html">
+		<ons-page ng-controller="PrincipalController">
+      <ons-list>
+        <ons-list-item modifier="chevron" class="list-item-container" ng-repeat="item in items">
+          <ons-row>
+            <ons-col width="95px">
+              <img src="images/location1.png" class="thumbnail">
+            </ons-col>
+            <ons-col>
+              <div class="name">
+                {{item.Name}}
+              </div>
+              <div class="location">
+                <i class="fa fa-clock-o"></i> 
+              </div>
+              <div class="desc-mbloc">
+                {{item.Description}}
+              </div>
+            </ons-col>
+            <ons-col width="40px"></ons-col>
+          </ons-row>
+        </ons-list-item>
+
+      </ons-list>
+
+    </ons-page>
+	</ons-template>
+    <ons-template id="empty.html">
+      <ons-toolbar>
+        <div class="center">Page</div>
+      </ons-toolbar>
+    </ons-template>
+
+    <ons-template id="page.html">
+      <ons-toolbar>
+        <div class="center">List with Mini Pictures</div>
+      </ons-toolbar>
+
+      <ons-list>
+
+        <ons-list-item modifier="chevron" class="list-item-container">
+          <div class="list-item-left">
+            <img src="images/4548488065_dae90277db_q.jpg" class="avator">
+          </div>
+          <div class="list-item-right">
+            <div class="list-item-content">
+              <div class="name">Daniel
+                <span class="lucent">@Danny</span>
+              </div>
+
+              <span class="desc">Hi, how are you? Glad to hear you are interested in our project.</span>
+            </div>
+          </div>
+        </ons-list-item>
+
+        <ons-list-item modifier="chevron" class="list-item-container">
+          <div class="list-item-left">
+            <img src="images/3936883765_39121dcab5_q.jpg" class="avator">
+          </div>
+          <div class="list-item-right">
+            <div class="list-item-content">
+              <div class="name">John</div>
+              <span class="desc">I am a teacher at a elementary school.</span>
+            </div>
+          </div>
+        </ons-list-item>
+
+        <ons-list-item modifier="chevron" class="list-item-container">
+          <div class="list-item-left">
+            <img src="images/5388738458_ea9fd2a7d7_q.jpg" class="avator">
+          </div>
+          <div class="list-item-right">
+            <div class="list-item-content">
+              <div class="name">Lucy</div>
+
+              <span class="desc">Hello, nice meeting you <i class="fa fa-meh-o" style="color: orangered;"></i></span>
+            </div>
+          </div>
+        </ons-list-item>
+
+        <ons-list-item modifier="chevron" class="list-item-container">
+          <div class="list-item-left">
+            <img src="images/3152983303_4c0fd3140b_q.jpg" class="avator">
+          </div>
+          <div class="list-item-right">
+            <div class="list-item-content">
+              <div class="name">Elizabeth
+                <span class="lucent">@Elizabeth</span>
+              </div>
+              <span class="desc"><ons-icon icon="fa-phone" fixed-width="false" size="13px"></ons-icon> 1-800-123-4567</span>
+              <br>
+              <span class="desc">Please call me when you're ready.</span>
+            </div>
+          </div>
+        </ons-list-item>
+      </ons-list>
+
+    </ons-template>
+    </body>
+</html>
