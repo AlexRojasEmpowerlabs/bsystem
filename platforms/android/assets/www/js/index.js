@@ -25,7 +25,7 @@ var module = ons.bootstrap('my-app', ['onsen']);
   		$scope.target="?target=YouTube";
   		break;
   		case 3:
-  		$scope.target="?target=Presentacin";
+  		$scope.target="?target=Presentación";
   		break;
   		case 4:
   		$scope.target="?target=PDF";
@@ -52,7 +52,7 @@ var module = ons.bootstrap('my-app', ['onsen']);
 					$scope.tope.loadPage("video.html");
 				}
 				else{
-					if(selectedBloc.Format==='Presentacin'){
+					if(selectedBloc.Format==='Presentación'){
 						$scope.tope.loadPage("presentacion.html");
 					}
 				}
