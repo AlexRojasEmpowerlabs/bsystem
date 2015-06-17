@@ -101,12 +101,12 @@ body{
 }
 .tabla-pap{
 	padding: 5px;
-	padding-right: 0px;
 	background: #D0BDA4;
 	color: #433D41;
 	width: 100%;
 }
 .row-pap{
+	padding: 5px;
 	color: #433D41;
 }
 .pap-header{
@@ -203,7 +203,7 @@ h3.accordion{
     margin: 1px 0;
 }
 
-/*-------------------------------------------- Emedia queries -----------------------------------------------------*/
+/*-------------------------------------------- ELEMENTOS DE LISTA -----------------------------------------------------*/
 
 @media (min-width:320px) { /* smartphones, iPhone, portrait 480x320 phones */ }
 @media (min-width:641px) { /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */ }
