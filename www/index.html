@@ -5,6 +5,7 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="mobile-web-app-capable" content="yes">
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<meta name="viewport" content="width=device-width"/>
 		<link rel="stylesheet" href="lib/onsen/css/onsenui.css"/>
 		<link rel="stylesheet" href="lib/onsen/css/onsen-css-components.css"/>
 		<link rel="stylesheet" href="css/index.css" />
@@ -327,7 +328,7 @@
 						{{padre.percentcomplete}} %
 					</ons-col>
 					</ons-row>
-					
+					<ons-row>
 					<ons-row style=" background: #ddccbc;" ng-repeat="hijo in padre.hijos | filter:entradaPAP">
 						<ons-col style="padding-left: 15px;" width="50%">
 							<ons-icon icon="fa-angle-double-right"></ons-icon>
@@ -348,6 +349,7 @@
 						<ons-col class="row-pap" width="10%" align="center">
 							{{hijo.percentcomplete}} %
 						</ons-col>
+					</ons-row>
 					</ons-row>
 				</ons-row>
 				<!--<ons-bottom-toolbar style="padding: 3px;background: #D0BDA1" >
