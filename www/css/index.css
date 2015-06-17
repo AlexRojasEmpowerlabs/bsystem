@@ -101,12 +101,12 @@ body{
 }
 .tabla-pap{
 	padding: 5px;
+	padding-right: 0px;
 	background: #D0BDA4;
 	color: #433D41;
 	width: 100%;
 }
 .row-pap{
-	padding: 5px;
 	color: #433D41;
 }
 .pap-header{
