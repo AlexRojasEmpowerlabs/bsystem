@@ -102,7 +102,8 @@ body{
 .tabla-pap{
 	padding: 5px;
 	background: #D0BDA4;
-	color: #433D41
+	color: #433D41;
+	width: 100%;
 }
 .row-pap{
 	padding: 5px;
