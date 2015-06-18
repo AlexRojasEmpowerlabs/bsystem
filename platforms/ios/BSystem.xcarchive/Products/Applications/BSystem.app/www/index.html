@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="mobile-web-app-capable" content="yes">
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="lib/onsen/css/onsenui.css"/>
+		<link rel="stylesheet" href="lib/onsen/css/onsen-css-components.css"/>
+		<link rel="stylesheet" href="css/index.css" />
+		<script src="lib/onsen/js/angular/angular.js"></script>
+		<script src="lib/onsen/js/onsenui.js"></script>
+
+		<script type="text/javascript" src="cordova.js"></script>
+		<script type="text/javascript" src="js/index.js"></script>
+		<title>Business System</title>
+	</head>
+	<body ng-controller="BodyController">
+		
+		<ons-tabbar hide-tabs="hgoe">
+			<ons-tab page="mbloc.html" active="true">
+				<ons-icon icon="fa fa-cubes"></ons-icon>
+			</ons-tab>
+
+			<ons-tab page="pap.html">
+				<ons-icon icon="fa fa-tasks"></ons-icon>
+			</ons-tab>
+
+			<ons-tab page="eCommunicator.html">
+				<ons-icon icon="fa fa-bullhorn"></ons-icon>
+			</ons-tab>
+
+			<ons-tab page="sales.html">
+				<ons-icon icon="fa fa-usd"></ons-icon>
+			</ons-tab>
+
+			<ons-tab page="TicketTracker.html">
+				<ons-icon icon="fa fa-check-circle-o"></ons-icon>
+			</ons-tab>
+
+			<ons-tab>
+				<ons-icon icon="fa fa-question-circle"></ons-icon>
+			</ons-tab>
+
+			<ons-tab>
+				<ons-icon icon="fa fa-comment"></ons-icon>
+			</ons-tab>
+
+		</ons-tabbar>
+		
+		
+<!--Page ticket-->
+
+<ons-template id="popover.html">
+  <ons-popover direction="up down" cancelable>
+    <p style="text-align: center; opacity: 0.5;">Aqui ira el menu en lista pop</p>
+  </ons-popover>
+</ons-template>
+		<ons-template id="TicketTracker.html">
+			<ons-navigator>
+				<ons-page ng-controller="TicketsController">
+					<ons-toolbar class="custom-toolbar">
+						<div class="left">
+							<ons-toolbar-button var="lista" ng-click="mostrarpop()">
+								<ons-icon icon="ion-navicon" size="28px" fixed-width="false"></ons-icon>
+							</ons-toolbar-button>
+						</div>
+						<div class="right">
+							<ons-toolbar-button ng-click="newTicket()" ng-controller="NewTicketController">
+								<ons-icon icon="ion-compose custom-icon"></ons-icon>
+							</ons-toolbar-button>
+						</div>
+						<div class="center">
+							Mesa de Trabajo
+						</div>
+					</ons-toolbar>
+					<div class="navigation-bar">
+						<div class="navigation-bar__center">
+
+							<input type="search" class="search-input" style="width: 96%; margin: 6px auto 6px auto;" placeholder="Buscar" ng-model="entradaTicket">
+
+						</div>
+					</div>
+					<ons-list>
+
+						<!--<div id="ticketbox"></div>-->
+						<ons-list-item modifier="chevron" class="item" ng-repeat="item in items | filter : entradaTicket" ng-click="showTicket(item)">
+							<ons-row>
+								<ons-col width="60px">
+									<div class="item-thum"><img style="height: 50px; width: 50px;" src="{{item.thum}}"/>
+									</div>
+								</ons-col>
+								<ons-col>
+									<header>
+										<span class="item-title">{{item.tipo}}</span>
+										<span class="item-label">{{item.fecha}}</span>
+									</header>
+									<p class="item-desc">
+										{{item.problema}}
+									</p>
+								</ons-col>
+							</ons-row>
+						</ons-list-item>
+					</ons-list>
+				</ons-page>
+
+			</ons-navigator>
+		</ons-template>
+<!--Page one ticket-->
+		<ons-template id="ticket.html">
+			<ons-page ng-controller="TicketIndividualController">
+				<ons-toolbar class="custom-toolbar">
+					<div class="left">
+						<ons-back-button>
+
+						</ons-back-button>
+					</div>
+					<div class="center">
+						individual
+					</div>
+				</ons-toolbar>
+				<ons-list modifier="inset" style="margin-top: 10px">
+					<ons-list-item class="item">
+						<ons-row>
+							<ons-col width="60px">
+								<div class="item-thum"><img style="height: 50px; width: 50px;" src="{{item.thum}}"/>
+								</div>
+							</ons-col>
+							<ons-col>
+								<header>
+									<span class="item-title">{{item.problema}}</span>
+									<span class="item-label">{{item.fecha}}</span>
+								</header>
+								<p class="item-desc">
+									<strong>Responsable: </strong>{{item.solucion}}
+								</p>
+							</ons-col>
+						</ons-row>
+					</ons-list-item>
+
+					<ons-list-item modifier="chevron" ng-click="doSomething()">
+						<ons-icon icon="ion-star" fixed-width="true" style="color: #ccc"></ons-icon>
+						Marcar como favorito
+					</ons-list-item>
+				</ons-list>
+
+				<ons-list style="margin-top: 10px">
+					<ons-list-item class="item">
+						<header>
+							<span class="item-title">{{item.problema}}</span>
+						</header>
+						<p class="item-desc">
+							{{item.descripcion}}
+						</p>
+						<p class="item-desc">
+							<strong>Por: </strong>{{item.autor}}
+						</p>
+						<p class="item-desc">
+							<strong>Email: </strong>{{item.email}}
+						</p>
+						<p class="item-desc">
+							<strong>Responsable: </strong>{{item.solucion}}
+						</p>
+						<p class="item-desc">
+							<strong>Avance: </strong>{{item.porcentaje}}
+						</p>
+					</ons-list-item>
+				</ons-list>
+
+			</ons-page>
+		</ons-template>
+
+		<ons-template id="sales.html">
+			<ons-tabbar position="top" var="topeSales">
+				<ons-tab page="clientes.html" active="true">
+					<ons-icon icon="fa fa-building"></ons-icon>
+					<span style="font-size: 14px">Clientes</span>
+				</ons-tab>
+				<ons-tab page="contactos.html">
+					<ons-icon icon="fa fa-users"></ons-icon>
+					<span style="font-size: 14px">Contactos</span>
+				</ons-tab>
+				<ons-tab page="ventas.html">
+					<ons-icon icon="fa fa-money"></ons-icon>
+					<span style="font-size: 14px">Ventas</span>
+				</ons-tab>
+			</ons-tabbar>
+			<ons-template id="clientes.html">
+				<ons-page ng-controller="ClientesController">
+					<ons-list>
+						<ons-list-item modifier="chevron" class="list-item-container" ng-repeat="cliente in Clientes">
+							{{cliente.name}}
+						</ons-list-item>
+					</ons-list>
+				</ons-page>
+			</ons-template>
+			<ons-template id="contactos.html">
+				<ons-page ng-controller="ContactosController">
+					<ons-list>
+						<ons-list-item modifier="chevron" class="list-item-container" ng-repeat="contacto in Contactos">
+							{{contacto.name}}
+						</ons-list-item>
+					</ons-list>
+				</ons-page>
+			</ons-template>
+			<ons-template id="ventas.html">
+				<ons-page ng-controller="VentasController">
+					<ons-list>
+						<ons-list-item modifier="chevron" class="list-item-container" ng-repeat="venta in Ventas">
+							{{venta.description}}
+						</ons-list-item>
+					</ons-list>
+				</ons-page>
+			</ons-template>
+		</ons-template>
+
+		<ons-template id="mbloc.html">
+			<ons-tabbar position="top" var="tope">
+				<ons-tab page="inicio.html">
+					<ons-icon icon="fa fa-list"></ons-icon>
+				</ons-tab>
+				<ons-tab page="inicio.html">
+					<ons-icon icon="fa fa-graduation-cap"></ons-icon>
+				</ons-tab>
+				<ons-tab page="inicio.html" active="true">
+					<ons-icon icon="fa fa-film"></ons-icon>
+				</ons-tab>
+				<ons-tab page="inicio.html">
+					<ons-icon icon="fa fa-file-powerpoint-o"></ons-icon>
+				</ons-tab>
+				<ons-tab page="inicio.html">
+					<ons-icon icon="fa fa-book"></ons-icon>
+				</ons-tab>
+				<ons-tab page="inicio.html">
+					<ons-icon icon="fa fa-search"></ons-icon>
+				</ons-tab>
+
+			</ons-tabbar>
+			<ons-template id="inicio.html">
+				<ons-page ng-controller="PrincipalController">
+					<ons-list>
+						<ons-list-item modifier="chevron" class="list-item-container" ng-repeat="item in items" ng-click="detalles(item)">
+							<ons-row>
+								<ons-col width="95px">
+									<img src="img/{{item.Format}}.png" class="thumbnail">
+								</ons-col>
+								<ons-col>
+									<div class="name">
+										{{item.Name}}
+									</div>
+									<div class="location">
+										<i class="fa fa-clock-o"></i>
+									</div>
+									<div class="desc-mbloc">
+										{{item.Description}}
+									</div>
+								</ons-col>
+								<ons-col width="40px"></ons-col>
+							</ons-row>
+						</ons-list-item>
+					</ons-list>
+				</ons-page>
+			</ons-template>
+			<ons-template id="pdf.html">
+				<ons-page ng-controller="PDFController">
+					<iframe src="" frameborder="0" class="pdf" id="frame" allowFullScreen></iframe>
+
+				</ons-page>
+			</ons-template>
+
+			<ons-template id="video.html">
+				<ons-page ng-controller="VideoController">
+					<iframe src="" frameborder="0" class="video" allowfullscreen></iframe>
+
+				</ons-page>
+			</ons-template>
+
+			<ons-template id="presentacion.html">
+				<ons-page ng-controller="PresentationController">
+					<iframe src="" frameborder="0" class="video" allowfullscreen></iframe>
+
+				</ons-page>
+			</ons-template>
+		</ons-template>
+
+		<ons-template id="pap.html">
+			<ons-page style="padding: 3px;background: #D0BDA1" ng-controller="PapController">
+				<ons-toolbar style="background: #433D41">
+					<div class="center" style="background: #433D41">
+						<input type="search" class="search-input" style="width: 96%; margin: 6px auto 6px auto;" placeholder="Buscar" ng-model="entradaPAP">
+					</div>
+				</ons-toolbar>
+				<!--<ons-list modifier="inset" class="list-item-container" style="margin-top: 10px">
+				<ons-list-item class="item">
+				<ons-row>
+				<ons-col width="60px">
+				<div class="item-thum"><img style="height: 50px; width: 50px;" src="http://www.empowerlabs.com/intellibanks/pub/ProjectDigitalDesignStudio/ProyectoNotaria22/icon_pluma_color1.png"/></div>
+				</ons-col>
+				<ons-col>
+				<header>
+				<span class="item-title">Plan de Acción Prioritaria</span>
+				<span class="item-label"></span>
+				</header>
+				<p class="item-desc">
+				{{item.account}}
+				</p>
+				</ons-col>
+				</ons-row>
+				</ons-list-item>
+				</ons-list>-->
+
+				<ons-row class="tabla-pap">
+					<ons-col width="50%">
+						<strong>Acción</strong>
+					</ons-col>
+					<ons-col class="row-pap" align="center">
+						<ons-icon icon="thumbs-up"></ons-icon>
+					</ons-col>
+					<ons-col class="row-pap" align="center">
+						<ons-icon icon="fa-soccer-ball-o"></ons-icon>
+					</ons-col>
+					<ons-col class="row-pap" align="center">
+						<ons-icon icon="fa-check-circle"></ons-icon>
+					</ons-col>
+					<ons-col class="row-pap" align="center">
+						<ons-icon icon="fa fa-exclamation-triangle"></ons-icon>
+					</ons-col>
+					<ons-col class="row-pap" align="center">
+						<ons-icon icon="fa-line-chart"></ons-icon>
+					</ons-col>
+				</ons-row>
+
+				<ons-row class="tabla-pap" ng-repeat="padre in Padres | filter:entradaPAP">
+					<ons-col class="tabla-pap" width="50%">
+						<ons-icon icon="fa-angle-double-down"></ons-icon>
+						{{padre.title}}
+					</ons-col>
+					<ons-col class="row-pap" align="center"></ons-col>
+					<ons-col class="row-pap" align="center">
+						<img style="height: 100%; width: 100%" src="{{padre.thum}}"/>
+					</ons-col>
+					<ons-col class="row-pap" align="center">
+						a
+					</ons-col>
+					<ons-col class="row-pap" align="center">
+						<ons-icon icon="fa-circle {{padre.prioritycolor}}"></ons-icon>
+					</ons-col>
+					<ons-col class="row-pap" align="center">
+						{{padre.percentcomplete}} %
+					</ons-col>
+
+					<ons-row style=" background: #D0BDA4;" ng-repeat="hijo in padre.hijos | filter:entradaPAP" ng-click="detalle(hijo)">
+						<ons-col style="padding-left: 15px;" width="50%">
+							<ons-icon icon="fa-angle-double-right"></ons-icon>
+							{{hijo.title}}
+						</ons-col>
+						<ons-col class="row-pap" align="center"></ons-col>
+						<ons-col class="row-pap" align="center">
+							<img style="height: 100%; width: 100%" src="{{hijo.thum}}"/>
+						</ons-col>
+						<ons-col class="row-pap" align="center">
+							as
+						</ons-col>
+						<ons-col class="row-pap" align="center">
+							<ons-icon icon="fa-circle {{hijo.prioritycolor}}"></ons-icon>
+						</ons-col>
+						<ons-col class="row-pap" align="center">
+							{{hijo.percentcomplete}} %
+						</ons-col>
+					</ons-row>
+				</ons-row>
+				<!--<ons-bottom-toolbar style="padding: 3px;background: #D0BDA1" >
+				<div class="center">
+				</div>
+				</ons-bottom-toolbar>-->
+			</ons-page>
+		</ons-template>
+
+		
+<!--Ecommunicator-->
+		<ons-template id="eCommunicator.html">
+			<ons-navigator var="navigator">
+				<ons-page ng-controller="ECommunicator">
+					<ons-toolbar class="custom-toolbar">
+						<div class="left">
+						</div>
+						<div class="center">
+							eCommunicator
+						</div>
+						<div class="right">
+      				    </div>
+					</ons-toolbar>
+
+					<ons-list style="margin-top: 30px">
+
+						<!--<div id="ticketbox"></div>-->
+						 
+						<ons-list-item modifier="chevron" class="item" ng-repeat="name in names" ng-click="showCom(name)">
+							<ons-row>
+								<ons-col width="60px">
+									<!--div class="item-thum"></div-->
+								</ons-col>
+								<ons-col>
+									<header>
+										<span class="item-title">{{name.asunto}}</span>
+										<span class="item-label">{{name.fecha}}</span>
+									</header>
+									<p class="item-desc">
+										{{name.descripcion}}
+									</p>
+								</ons-col>
+							</ons-row>
+						</ons-list-item>
+					</ons-list>
+				</ons-page>
+			</ons-navigator>
+		</ons-template>
+<!--Page detailComunicado-->
+		<ons-template id="detailComunicado.html">
+			<ons-page ng-controller="DetailComunicadoController">
+
+				<ons-toolbar class="custom-toolbar">
+					<div class="left">
+						<ons-back-button>
+							Atras
+						</ons-back-button>
+					</div>
+					<div class="center"></div>
+					
+				</ons-toolbar>
+
+				<ons-list modifier="inset" style="margin-top: 10px">
+					<ons-list-item class="item">
+						<ons-row>
+							<ons-col width="60px">
+								<div class="item-thum"></div>
+							</ons-col>
+							<ons-col>
+								<header>
+									<span class="item-title">{{com.asunto}}</span>
+									<span class="item-label">{{com.fecha}}</span>
+								</header>
+								<p class="item-desc">
+									{{com.area}}
+								</p>
+							</ons-col>
+						</ons-row>
+					</ons-list-item>
+
+					<ons-list-item modifier="chevron" ng-click="ons.navigator.pushPage('perfil.html',{animation:'fade'})">
+						<ons-icon icon="ion-chatboxes" fixed-width="true" style="color: #ccc"></ons-icon>
+						<strong>Por: </strong>{{com.author}}
+					</ons-list-item>
+				</ons-list>
+
+				<ons-list style="margin-top: 10px">
+					<ons-list-item class="item">
+						<header>
+							<span class="item-title"></span>
+						</header>
+						<p class="item-desc">
+							{{com.descripcion}}
+						</p>
+					</ons-list-item>
+				</ons-list>
+
+				<ons-list style="margin-top: 10px">
+					<ons-list-item class="item">
+						<header>
+							<span class="item-title">{{com.area}}</span>
+						</header>
+						<p class="item-desc">
+							<strong>Categoria: </strong>{{com.categoria}}
+						</p>
+					</ons-list-item>
+				</ons-list>
+
+				<ons-list style="margin-top: 10px">
+					<ons-list-item class="item">
+						<header>
+							<span class="item-title"></span>
+						</header>
+						<p class="item-desc">
+							<strong>Activo? </strong>{{com.activo}}
+						</p>
+					</ons-list-item>
+				</ons-list>
+				<!--ons-button ng-click="cuentaOne(com)">editar</ons-button-->
+				<br>
+		  	</ons-page>
+		</ons-template>
+	</body>
+</html>
