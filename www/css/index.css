@@ -206,7 +206,9 @@ h3.accordion{
     padding: 10px;
     margin: 1px 0;
 }
-
+table, th, td {
+   text-align: center;
+}
 /*-------------------------------------------- ELEMENTOS DE LISTA -----------------------------------------------------*/
 
 @media (min-width:320px) { /* smartphones, iPhone, portrait 480x320 phones */ }
