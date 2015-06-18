@@ -306,9 +306,9 @@
 						<ons-icon icon="fa-line-chart"></ons-icon>
 					</ons-col>
 				</ons-row>
-				<!--
 				<ons-row class="tabla-pap" ng-repeat="padre in Padres | filter:entradaPAP" ng-click='detalle(padre)'>
-					<ons-col class="tabla-pap" width="50%">
+					<p>
+						<ons-col class="tabla-pap" width="50%">
 						<ons-icon icon="fa-angle-double-down"></ons-icon>
 						{{padre.title}}
 					</ons-col>
@@ -325,7 +325,8 @@
 					<ons-col class="row-pap" width="10%" align="center">
 						{{padre.percentcomplete}} %
 					</ons-col>
-					
+					</p>
+					<p>
 					<ons-row style=" background: #ddccbc;" ng-repeat="hijo in padre.hijos | filter:entradaPAP">
 						<ons-col style="padding-left: 15px;" width="50%">
 							<ons-icon icon="fa-angle-double-right"></ons-icon>
@@ -347,13 +348,15 @@
 							{{hijo.percentcomplete}} %
 						</ons-col>
 					</ons-row>
-				</ons-row>-->
+					</p>
+				</ons-row>
+				<!--
 				<div ng-repeat="padre in Padres | filter:entradaPAP">
 					<p>{{padre.title}}</p>
 				<div ng-repeat="hijo in padre.hijos | filter:entradaPAP">
 					<p>{{hijo.title}}</p>
 				</div>
-				</div>
+				</div>-->
 				<!--<ons-bottom-toolbar style="padding: 3px;background: #D0BDA1" >
 				<div class="center">
 				</div>
