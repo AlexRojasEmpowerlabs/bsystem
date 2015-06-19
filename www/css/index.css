@@ -93,14 +93,14 @@ body{
   color: #FFFFFF;
 }
 :checked + .tab-bar__button {
-  color: #7abfff;
+  color: #B32D3A;
   background-color: transparent;
   -webkit-box-shadow: none;
   box-shadow: none;
   border-top: none;
 }
 :checked + .tab-bar__button > .tab-bar__icon {
-  color: #7abfff;
+  color: #B32D3A;
 }
 .tabla-pap{
 	padding: 5px;
@@ -179,7 +179,7 @@ body{
       float: right;
     }
     .custom-toolbar{
-    	background: #000000;
+    	background: #0D0D0D;
 		color: #FFFFFF;
     }
 .right, .left, .center, .toolbar-button {
@@ -189,23 +189,28 @@ body{
   color: #FFFFFF;
 }
 
-h3.accordion{
-    margin: 0;
+/* ============================================================================================================================
+== CHAY
+** ============================================================================================================================ */
+.derecha{
+	margin-left: 10%;
+	text-align:right;
+	background:#B7DEED;
+	padding: 5px;
+	border-radius: 3px;
+	margin-bottom: 10px;
 }
-.accordion a{
-    padding: 10px;
-    background: #ddd;
-    color: #333;
-    text-decoration: none;
-    font-weight: bold;
-    display: block;
-    margin-bottom: 1px;
+.izquierda{
+	margin-right: 10%;
+	text-align:left;
+	background: #21B4E2;
+	padding: 5px;
+	border-radius: 3px;
+	margin-bottom: 10px;
 }
-.accordion-content{
-    border: 1px solid #ddd;
-    padding: 10px;
-    margin: 1px 0;
-}
+/* 
+------------------------------------------------------------------------------------------------------------------------------- */
+
 table, th, td {
    text-align: center;
 }
