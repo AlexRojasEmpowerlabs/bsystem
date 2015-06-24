@@ -13,6 +13,12 @@
 
 		<script type="text/javascript" src="cordova.js"></script>
 		<script type="text/javascript" src="js/index.js"></script>
+		<!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/css/materialize.min.css">
+
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/js/materialize.min.js"></script>
+          
 		<title>Business System</title>
 	</head>
 	<body ng-controller="BodyController">
@@ -197,7 +203,7 @@
 					<div class="navigation-bar">
 						<div class="navigation-bar__center">
 
-							<input type="search" class="search-input" style="width: 96%; margin: 6px auto 6px auto;" placeholder="Buscar" ng-model="entradaTicket">
+							<input type="search" style="width: 96%; margin: 6px auto 6px auto;" placeholder="Buscar" ng-model="entradaTicket">
 
 						</div>
 					</div>
@@ -330,6 +336,7 @@
 		</ons-template>
 
 		<ons-template id="mbloc.html">
+		<ons-page style="background: #000000;">
 			<ons-tabbar position="top" var="tope">
 				<ons-tab page="inicio.html">
 					<ons-icon icon="fa fa-list"></ons-icon>
@@ -351,8 +358,10 @@
 				</ons-tab>
 
 			</ons-tabbar>
+			</ons-page>
+		</ons-template>
 			<ons-template id="inicio.html">
-				<ons-page style="background: #666666" ng-controller="PrincipalController">
+				<ons-page style="background: #FCFCFC" ng-controller="PrincipalController">
 					<ons-list>
 						<ons-list-item modifier="chevron" class="list-item-container" ng-repeat="item in items" ng-click="detalles(item)">
 							<ons-row>
@@ -377,33 +386,80 @@
 				</ons-page>
 			</ons-template>
 			<ons-template id="pdf.html">
-				<ons-page style="background: #666666" ng-controller="PDFController">
+				<ons-page style="background: #FCFCFC" ng-controller="PDFController">
 					<iframe src="" frameborder="0" class="pdf" id="frame" allowFullScreen></iframe>
 
 				</ons-page>
 			</ons-template>
 
 			<ons-template id="video.html">
-				<ons-page style="background: #666666" ng-controller="VideoController">
+				<ons-page style="background: #FCFCFC" ng-controller="VideoController">
 					<iframe src="" frameborder="0" class="video" allowfullscreen></iframe>
+				<ons-list modifier="chevron" style="max-height: 50%; overflow: scroll;">
+					<ons-list-item>
 
+						<ons-list style="margin-top: 10px">
+							<ons-list-item class="item">
+					<div style="width: 100%; text-align: center ">		
+				<a class="btn-floating btn-large waves-effect waves-light red darken-3" ng-click="opciones()"><i class="fa fa-arrow-left"></i></a>
+				
+				<a class="btn-floating btn-large waves-effect waves-light blue darken-3" ng-click="opciones()"><i class="fa fa-share-alt"></i></a>
+				<a class="btn-floating btn-large waves-effect waves-light cyan darken-3" ng-click="opciones()"><i class="fa fa-arrows-alt"></i></a>
+				
+				</div>
+								<header>
+									<span class="item-title">{{source.Date_of_last_update}}</span>
+									<br>
+								</header>
+								<p class="item-desc">
+									{{source.Description}}
+								</p>
+								<p class="item-desc">
+									<strong>Por: </strong>{{source.Contributed}}
+								</p>
+								<p class="item-desc">
+									<strong>Categoria:: </strong>{{source.Type}}
+								</p>
+							</ons-list-item>
+							<ons-list-item class="item">
+								<p>
+									<div class="rating">
+										<div class="rating-num">
+											<ons-icon icon="fa-star" fixed-width="false"></ons-icon>
+											<ons-icon icon="fa-star" fixed-width="false"></ons-icon>
+											<ons-icon icon="fa-star" fixed-width="false"></ons-icon>
+											<ons-icon icon="fa-star" fixed-width="false"></ons-icon>
+											<ons-icon icon="fa-star-half" fixed-width="false"></ons-icon>
+											4.5
+										</div>
+									</div>
+								</p>
+							</ons-list-item>
+						</ons-list>
+					</ons-list-item>
+					<ons-list-item class="item" modifier="chevron" ng-click="presentacion()">
+						<i class="fa fa-signal"></i> Encuesta
+					</ons-list-item>
+					<ons-list-item class="item" modifier="chevron" ng-click="presentacion()">
+						<i class="fa-signal"></i> Etiquetas
+					</ons-list-item>
+				</ons-list>
 				</ons-page>
 			</ons-template>
 
 			<ons-template id="presentacion.html">
-				<ons-page style="background: #666666" ng-controller="PresentationController">
+				<ons-page style="background: #FCFCFC" ng-controller="PresentationController">
 					<iframe src="" frameborder="0" class="video" allowfullscreen></iframe>
 
 				</ons-page>
 			</ons-template>
-		</ons-template>
 
 		<ons-template id="pap.html">
 			<ons-navigator>
 				<ons-page style="padding: 3px;background: #D0BDA4" ng-controller="PapController">
 					<ons-toolbar style="background: #0D0D0D">
 						<div class="center" style="background: #0D0D0D">
-							<input type="search" class="search-input" style="width: 96%; margin: 6px auto 6px auto;" placeholder="Buscar" ng-model="entradaPAP">
+							<input type="search" style="width: 96%; margin: 6px auto 6px auto;" placeholder="Buscar" ng-model="entradaPAP">
 						</div>
 					</ons-toolbar>
 					<ons-row class="tabla-pap">
@@ -426,48 +482,6 @@
 							<ons-icon icon="fa-line-chart"></ons-icon>
 						</ons-col>
 					</ons-row>
-					<!--
-					<ons-row class="tabla-pap" ng-repeat="padre in Padres | filter:entradaPAP" ng-click='detalle(padre)'>
-					<ons-col class="tabla-pap" width="50%">
-					<ons-icon icon="fa-angle-double-down"></ons-icon>
-					{{padre.title}}
-					</ons-col>
-					<ons-col class="row-pap" width="10%" align="center"></ons-col>
-					<ons-col class="row-pap" width="10%" align="center">
-					<img style="height: 100%; width: 100%; max-height: 25px; max-width: 25px" src="{{padre.thum}}"/>
-					</ons-col>
-					<ons-col class="row-pap" width="10%" align="center">
-					<ons-icon icon="fa-circle {{padre.prioritystatus}}"></ons-icon>
-					</ons-col>
-					<ons-col class="row-pap" width="10%" align="center">
-					<ons-icon icon="fa-circle {{padre.prioritycolor}}"></ons-icon>
-					</ons-col>
-					<ons-col class="row-pap" width="10%" align="center">
-					{{padre.percentcomplete}} %
-					</ons-col>
-
-					<ons-row style=" background: #ddccbc;" ng-repeat="hijo in padre.hijos | filter:entradaPAP">
-					<ons-col style="padding-left: 15px;" width="50%">
-					<ons-icon icon="fa-angle-double-right"></ons-icon>
-					{{hijo.title}}
-					</ons-col>
-					<ons-col class="row-pap" width="10%" align="center">
-					<img style="height: 100%; width: 100%; max-height: 25px; max-width: 25px" src="{{hijo.thum2}}"/>
-					</ons-col>
-					<ons-col class="row-pap" width="10%" align="center">
-					<img style="height: 100%; width: 100%; max-height: 25px; max-width: 25px" src="{{hijo.thum}}"/>
-					</ons-col>
-					<ons-col class="row-pap" width="10%" align="center">
-					<ons-icon icon="fa-circle {{hijo.prioritystatus}}"></ons-icon>
-					</ons-col>
-					<ons-col class="row-pap" width="10%" align="center">
-					<ons-icon icon="fa-circle {{hijo.prioritycolor}}"></ons-icon>
-					</ons-col>
-					<ons-col class="row-pap" width="10%" align="center">
-					{{hijo.percentcomplete}} %
-					</ons-col>
-					</ons-row>
-					</ons-row>-->
 					<table style="width: 100%; padding: 5px; overflow: scroll" ng-repeat="padre in Padres | filter:entradaPAP">
 						<tr class="tabla-pap">
 							<td style="width: 50%; text-align: left" ng-click='detalle(padre)'><ons-icon icon="fa-angle-double-down"></ons-icon> {{padre.title}} </td>
@@ -559,7 +573,7 @@
 		<!--Ecommunicator-->
 		<ons-template id="eCommunicator.html">
 			<ons-navigator var="navigator">
-				<ons-page style="background: #666666" ng-controller="ECommunicator">
+				<ons-page ng-controller="ECommunicator">
 					<ons-toolbar class="custom-toolbar">
 						<div class="left"></div>
 						<div class="center">
@@ -568,9 +582,7 @@
 						<div class="right"></div>
 					</ons-toolbar>
 
-					<ons-list style="margin-top: 30px">
-
-						<!--<div id="ticketbox"></div>-->
+					<!--<ons-list style="margin-top: 30px">
 
 						<ons-list-item modifier="chevron" class="item" ng-repeat="name in names" ng-click="showCom(name)">
 							<ons-row>
@@ -585,8 +597,25 @@
 								</ons-col>
 							</ons-row>
 						</ons-list-item>
-					</ons-list>
-
+					</ons-list>-->
+					
+      <div class="row" ng-repeat="name in names">
+        <div class="col s12 m7">
+          <div class="card">
+            <div class="card-image">
+              <img src="{{name.thum}}">
+              <span class="card-title">{{name.asunto}}</span>
+            </div>
+            <div class="card-content">
+              <p>{{name.descripcion}}</p>
+            </div>
+            <div class="card-action">
+              <a ng-click="showCom(name)">Más información ...</a>
+            </div>
+          </div>
+        </div>
+      </div>
+            
 				</ons-page>
 			</ons-navigator>
 		</ons-template>
@@ -608,7 +637,7 @@
 					<ons-list-item class="item">
 						<ons-row>
 							<ons-col width="60px">
-								<div class="item-thum"></div>
+								<div class="item-thum"><img src="{{com.thum}}" style="height: 60px; width: 60px; border-radius: 30px" /></div>
 							</ons-col>
 							<ons-col>
 								<header>

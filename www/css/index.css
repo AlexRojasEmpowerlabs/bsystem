@@ -5,8 +5,7 @@ body{
   line-height: 1;
   font-size: 14px;
   padding: 15px 0px 15px 15px;
-  background: #D0BDA4;
-  color: #222222;
+  color: #b2a28d;
 }
 
 .list-item-left {
@@ -150,8 +149,7 @@ body{
     .item {
       padding: 10px;
       line-height: 1;
-  	  background-color: #D0BDA4;
-  	  color: #222222;
+  	  color: #D0BDA4;
     }
     .item-thum {
       background-color: #ccc;
@@ -214,6 +212,78 @@ body{
 table, th, td {
    text-align: center;
 }
+
+/* 
+-------------------------carlos css------------------------------------------------------------------------------------------------------ */
+
+
+.rating {
+	text-align: center;
+	position: relative;
+	height: 0px;
+}
+
+.rating-num {
+	position: relative;
+	top: -24px;
+	height: 24px;
+	color: white;
+	line-height: 24px;
+	font-size: 12px;
+	font-weight: 600;
+	text-align: center;
+	border-radius: 4px 4px 0 0;
+	padding: 0 6px;
+	background-color: #eb482f;
+	color: white;
+	width: auto;
+	margin: 0 auto 0 auto;
+	display: inline-block;
+}
+
+.rating-num ons-icon {
+	font-size: 11px;
+	vertical-align: -0px;
+}
+
+.action-col {
+	text-align: center;
+	opacity: 0.4;
+	padding: 10px 0 8px;
+}
+
+.action-col:active {
+	opacity: 0.7;
+}
+
+.action-col ons-button {
+	padding: 0;
+	line-height: 1;
+}
+
+.action-icon {
+	padding: 0 0 4px 0;
+}
+
+.action-icon ons-icon {
+	font-size: 28px;
+}
+
+.action-label {
+	font-size: 12px;
+}
+
+.prop-desc {
+	font-size: 14px;
+	opacity: 0.7;
+}
+
+.prop-desc ons-icon {
+	font-size: 14px;
+	vertical-align: -0px;
+	opacity: 0.5;
+}
+
 /*-------------------------------------------- ELEMENTOS DE LISTA -----------------------------------------------------*/
 
 @media (min-width:320px) { /* smartphones, iPhone, portrait 480x320 phones */ }
