@@ -90,17 +90,25 @@ module.controller('VideoController', function($scope) {
 });
 
 module.controller('PDFController', function($scope) {
-	$scope.source = selectedBloc.More_information;
+	$scope.source = selectedBloc;
 	pdfs = document.querySelectorAll("iframe");
 	pdf = pdfs[0];
-	pdf.src = 'http://docs.google.com/gview?url=' + $scope.source + '&embedded=true';
+	pdf.src = 'http://docs.google.com/gview?url=' + $scope.source.More_information + '&embedded=true';
+	$scope.opciones=function(){
+			$scope.tope.loadPage("inicio.html");
+		
+	};
 });
 
 module.controller('PresentationController', function($scope) {
-	$scope.source = selectedBloc.Url;
+	$scope.source = selectedBloc;
 	pres = document.querySelectorAll("iframe");
 	pre = pres[0];
-	pre.src = 'http://docs.google.com/gview?url=' + $scope.source + '&embedded=true';
+	pre.src = 'http://docs.google.com/gview?url=' + $scope.source.Url + '&embedded=true';
+	$scope.opciones=function(){
+			$scope.tope.loadPage("inicio.html");
+		
+	};
 });
 
 module.controller('ClientesController', function($scope, $http) {
@@ -135,6 +143,10 @@ module.controller('PapController', function($scope, $http) {
 	};
 	$scope.detalleHijo = function(hijo) {
 		selectedPap = hijo;
+		$scope.ons.navigator.pushPage('PAPdetail.html');
+	};
+	$scope.detalleSubHijo = function(subhijo) {
+		selectedPap = subhijo;
 		$scope.ons.navigator.pushPage('PAPdetail.html');
 	};
 });

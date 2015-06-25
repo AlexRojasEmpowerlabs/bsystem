@@ -398,7 +398,55 @@
 			<ons-template id="pdf.html">
 				<ons-page style="background: #FCFCFC" ng-controller="PDFController">
 					<iframe src="" frameborder="0" class="pdf" id="frame" allowFullScreen></iframe>
+					<ons-list modifier="chevron" style="max-height: 50%; overflow: scroll;">
+					<ons-list-item>
 
+						<ons-list style="margin-top: 10px">
+							<ons-list-item class="item">
+					<div style="width: 100%; text-align: center ">		
+				<a class="btn-floating btn-large waves-effect waves-light red darken-3" ng-click="opciones()"><i class="fa fa-arrow-left"></i></a>
+				
+				<a class="btn-floating btn-large waves-effect waves-light blue darken-3" ng-click="opciones()"><i class="fa fa-share-alt"></i></a>
+				<a class="btn-floating btn-large waves-effect waves-light cyan darken-3" ng-click="opciones()"><i class="fa fa-arrows-alt"></i></a>
+				
+				</div>
+								<header>
+									<span class="item-title">{{source.Date_of_last_update}}</span>
+									<br>
+								</header>
+								<p class="item-desc">
+									{{source.Description}}
+								</p>
+								<p class="item-desc">
+									<strong>Por: </strong>{{source.Contributed}}
+								</p>
+								<p class="item-desc">
+									<strong>Categoria:: </strong>{{source.Type}}
+								</p>
+							</ons-list-item>
+							<ons-list-item class="item">
+								<p>
+									<div class="rating">
+										<div class="rating-num">
+											<ons-icon icon="fa-star" fixed-width="false"></ons-icon>
+											<ons-icon icon="fa-star" fixed-width="false"></ons-icon>
+											<ons-icon icon="fa-star" fixed-width="false"></ons-icon>
+											<ons-icon icon="fa-star" fixed-width="false"></ons-icon>
+											<ons-icon icon="fa-star-half" fixed-width="false"></ons-icon>
+											4.5
+										</div>
+									</div>
+								</p>
+							</ons-list-item>
+						</ons-list>
+					</ons-list-item>
+					<ons-list-item class="item" modifier="chevron" ng-click="presentacion()">
+						<i class="fa fa-signal"></i> Encuesta
+					</ons-list-item>
+					<ons-list-item class="item" modifier="chevron" ng-click="presentacion()">
+						<i class="fa-signal"></i> Etiquetas
+					</ons-list-item>
+				</ons-list>
 				</ons-page>
 			</ons-template>
 
@@ -460,13 +508,61 @@
 			<ons-template id="presentacion.html">
 				<ons-page style="background: #FCFCFC" ng-controller="PresentationController">
 					<iframe src="" frameborder="0" class="video" allowfullscreen></iframe>
+					<ons-list modifier="chevron" style="max-height: 50%; overflow: scroll;">
+					<ons-list-item>
 
+						<ons-list style="margin-top: 10px">
+							<ons-list-item class="item">
+					<div style="width: 100%; text-align: center ">		
+				<a class="btn-floating btn-large waves-effect waves-light red darken-3" ng-click="opciones()"><i class="fa fa-arrow-left"></i></a>
+				
+				<a class="btn-floating btn-large waves-effect waves-light blue darken-3" ng-click="opciones()"><i class="fa fa-share-alt"></i></a>
+				<a class="btn-floating btn-large waves-effect waves-light cyan darken-3" ng-click="opciones()"><i class="fa fa-arrows-alt"></i></a>
+				
+				</div>
+								<header>
+									<span class="item-title">{{source.Date_of_last_update}}</span>
+									<br>
+								</header>
+								<p class="item-desc">
+									{{source.Description}}
+								</p>
+								<p class="item-desc">
+									<strong>Por: </strong>{{source.Contributed}}
+								</p>
+								<p class="item-desc">
+									<strong>Categoria:: </strong>{{source.Type}}
+								</p>
+							</ons-list-item>
+							<ons-list-item class="item">
+								<p>
+									<div class="rating">
+										<div class="rating-num">
+											<ons-icon icon="fa-star" fixed-width="false"></ons-icon>
+											<ons-icon icon="fa-star" fixed-width="false"></ons-icon>
+											<ons-icon icon="fa-star" fixed-width="false"></ons-icon>
+											<ons-icon icon="fa-star" fixed-width="false"></ons-icon>
+											<ons-icon icon="fa-star-half" fixed-width="false"></ons-icon>
+											4.5
+										</div>
+									</div>
+								</p>
+							</ons-list-item>
+						</ons-list>
+					</ons-list-item>
+					<ons-list-item class="item" modifier="chevron" ng-click="presentacion()">
+						<i class="fa fa-signal"></i> Encuesta
+					</ons-list-item>
+					<ons-list-item class="item" modifier="chevron" ng-click="presentacion()">
+						<i class="fa-signal"></i> Etiquetas
+					</ons-list-item>
+				</ons-list>
 				</ons-page>
 			</ons-template>
 
 		<ons-template id="pap.html">
 			<ons-navigator>
-				<ons-page style="padding: 3px;background: #D0BDA4" ng-controller="PapController">
+				<ons-page style="padding: 3px;background: #ffcc80" ng-controller="PapController">
 					<ons-toolbar style="background: #0D0D0D">
 						<div class="center" style="background: #0D0D0D">
 							<input type="search" style="width: 96%; margin: 6px auto 6px auto;" placeholder="Buscar" ng-model="entradaPAP">
@@ -494,8 +590,9 @@
 						</td>
 					</tr>
 					</table>
-					<table style="width: 100%; padding: 5px; overflow: scroll" ng-repeat="padre in Padres | filter:entradaPAP">
-						<tr class="tabla-pap">
+					<div style="width: 100%; padding: 5px;" ng-repeat="padre in Padres | filter:entradaPAP">
+						<table style="width: 100%; padding: 5px;" class="tabla-pap orange lighten-3" >
+						<tr>
 							<td style="width: 50%; text-align: left" ng-click='detalle(padre)'><ons-icon icon="fa-angle-double-down"></ons-icon> {{padre.title}} </td>
 							<td style="width: 10%"></td>
 							<td style="width: 10%"><img style="height: 100%; width: 100%; max-height: 25px; max-width: 25px" src="{{padre.thum}}"/></td>
@@ -503,15 +600,29 @@
 							<td style="width: 10%"><ons-icon icon="fa-circle {{padre.prioritycolor}}"></ons-icon></td>
 							<td style="width: 10%">{{padre.percentcomplete}} %</td>
 						</tr>
-						<tr class="row-pap" style=" background: #ddccbc;" ng-repeat="hijo in padre.hijos | filter:entradaPAP">
+						</table>
+						<table style="width: 100%; padding: 5px;" class="row-pap orange lighten-4" ng-repeat="hijo in padre.hijos | filter:entradaPAP">
+							
+							<tr style="width: 100%; padding: 5px;">
 							<td style="width: 50%; text-align: left; padding-left: 15px" ng-click='detalleHijo(hijo)'>{{hijo.title}}</td>
 							<td style="width: 10%"><img style="height: 100%; width: 100%; max-height: 25px; max-width: 25px" src="{{hijo.thum2}}"/></td>
 							<td style="width: 10%"><img style="height: 100%; width: 100%; max-height: 25px; max-width: 25px" src="{{hijo.thum}}"/></td>
 							<td style="width: 10%"><ons-icon icon="fa-circle {{hijo.prioritystatus}}"></ons-icon></td>
 							<td style="width: 10%"><ons-icon icon="fa-circle {{hijo.prioritycolor}}"></ons-icon></td>
 							<td style="width: 10%">{{hijo.percentcomplete}} %</td>
-						</tr>
-					</table>
+							</tr>
+							<tr style="width: 100%; padding: 5px;" class="orange lighten-5" ng-repeat="subhijo in hijo.subhijos | filter:entradaPAP">
+								
+							<td style="width: 50%; text-align: left; padding-left: 25px" ng-click='detalleSubHijo(subhijo)'>{{subhijo.title}}</td>
+							<td style="width: 10%"><img style="height: 100%; width: 100%; max-height: 25px; max-width: 25px" src="{{subhijo.thum2}}"/></td>
+							<td style="width: 10%"><img style="height: 100%; width: 100%; max-height: 25px; max-width: 25px" src="{{subhijo.thum}}"/></td>
+							<td style="width: 10%"><ons-icon icon="fa-circle {{subhijo.prioritystatus}}"></ons-icon></td>
+							<td style="width: 10%"><ons-icon icon="fa-circle {{subhijo.prioritycolor}}"></ons-icon></td>
+							<td style="width: 10%">{{subhijo.percentcomplete}} %</td>
+							</tr>
+							
+						</table>
+					</div>
 					<!--<ons-bottom-toolbar style="padding: 3px;background: #D0BDA1" >
 					<div class="center">
 					</div>
