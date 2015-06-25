@@ -17,9 +17,9 @@ var module = ons.bootstrap('my-app', ['onsen']);
 
 module.controller('BodyController', function($scope) {
 
-	$scope.quitarpop = function() {
-		//$scope.popover.destroy();
-	};
+		ons.ready(function() {
+          // Init code here
+        });
 });
 
 module.controller('PrincipalController', function($scope, $blocsJSON, $http) {
