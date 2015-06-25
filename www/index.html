@@ -245,14 +245,15 @@
 						Detalles
 					</div>
 				</ons-toolbar>
-				<ons-list style="margin-top: 10px">
+				<ons-list modifier="inset" style="margin-top: 10px">
 					<ons-list-item class="item">
-						<ons-row>
-							<ons-col width="60px">
+					<table>
+						<tr>
+							<td width="60px">
 								<div class="item-thum"><img style="height: 50px; width: 50px;" src="{{item.thum}}"/>
 								</div>
-							</ons-col>
-							<ons-col>
+							</td>
+							<td>
 								<header>
 									<span class="item-title">{{item.problema}}</span>
 									<span class="item-label">{{item.fecha}}</span>
@@ -260,8 +261,9 @@
 								<p class="item-desc">
 									<strong>Responsable: </strong>{{item.solucion}}
 								</p>
-							</ons-col>
-						</ons-row>
+							</td>
+						</tr>
+					</table>
 					</ons-list-item>
 				</ons-list>
 
@@ -364,11 +366,12 @@
 				<ons-page style="background: #FCFCFC" ng-controller="PrincipalController">
 					<ons-list>
 						<ons-list-item modifier="chevron" class="list-item-container" ng-repeat="item in items" ng-click="detalles(item)">
-							<ons-row>
-								<ons-col width="95px">
+							<table>
+							<tr>
+								<td style="width: 95px">
 									<img src="{{item.thum}}" class="thumbnail">
-								</ons-col>
-								<ons-col>
+								</td>
+								<td>
 									<div class="name">
 										{{item.Name}}
 									</div>
@@ -378,9 +381,10 @@
 									<div class="desc-mbloc">
 										{{item.Description}}
 									</div>
-								</ons-col>
-								<ons-col width="40px"></ons-col>
-							</ons-row>
+								</td>
+								<td style="width: 40px"></td>
+							</tr>
+							</table>
 						</ons-list-item>
 					</ons-list>
 				</ons-page>
@@ -462,26 +466,28 @@
 							<input type="search" style="width: 96%; margin: 6px auto 6px auto;" placeholder="Buscar" ng-model="entradaPAP">
 						</div>
 					</ons-toolbar>
-					<ons-row class="tabla-pap">
-						<ons-col width="50%">
+					<table style="width: 100%">
+					<tr class="tabla-pap" style="width: 100%; padding: 5px; overflow: scroll">
+						<td style="width: 50%; text-align: left">
 							<strong>Acción</strong>
-						</ons-col>
-						<ons-col class="row-pap" align="center">
+						</td>
+						<td style="width: 10%">
 							<ons-icon icon="thumbs-up"></ons-icon>
-						</ons-col>
-						<ons-col class="row-pap" align="center">
+						</td>
+						<td style="width: 10%">
 							<ons-icon icon="fa-soccer-ball-o"></ons-icon>
-						</ons-col>
-						<ons-col class="row-pap" align="center">
+						</td>
+						<td style="width: 10%">
 							<ons-icon icon="fa-check-circle"></ons-icon>
-						</ons-col>
-						<ons-col class="row-pap" align="center">
+						</td>
+						<td style="width: 10%">
 							<ons-icon icon="fa fa-exclamation-triangle"></ons-icon>
-						</ons-col>
-						<ons-col class="row-pap" align="center">
+						</td>
+						<td style="width: 10%">
 							<ons-icon icon="fa-line-chart"></ons-icon>
-						</ons-col>
-					</ons-row>
+						</td>
+					</tr>
+					</table>
 					<table style="width: 100%; padding: 5px; overflow: scroll" ng-repeat="padre in Padres | filter:entradaPAP">
 						<tr class="tabla-pap">
 							<td style="width: 50%; text-align: left" ng-click='detalle(padre)'><ons-icon icon="fa-angle-double-down"></ons-icon> {{padre.title}} </td>
