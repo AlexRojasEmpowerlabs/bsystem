@@ -71,19 +71,21 @@
 					<ons-list style="margin-top: 50px">
 
 						<ons-list-item modifier="chevron" class="item" ng-repeat="r in res" ng-click="showChat(r)">
-							<ons-row>
-							<ons-col width="40px">
+						<table>
+							<tr>
+							<td style="width: 40px">
 								<img src="{{r.thum1}}" style="height: 25px; width: 25px;" class="person-image">
-							</ons-col>
-							<ons-col width="40px">
+							</td>
+							<td style="width: 40px">
 								<img src="{{r.thum2}}" style="height: 25px; width: 25px;" class="person-image">
-							</ons-col>
-								<ons-col>
+							</td>
+								<td>
 									<header>
 										<span class="item-title">{{r.who2}}</span>
 									</header>
-								</ons-col>
-							</ons-row>
+								</td>
+							</tr>
+						</table>
 						</ons-list-item>
 					</ons-list>
 				</ons-page>
@@ -148,14 +150,16 @@
 						<!--{{data[char]}}-->
 					</ons-list-header>
 					<ons-list-item class="person" modifier="tappable" ng-repeat="i in data | filter:entrada">
-						<ons-row>
-							<ons-col width="40px">
+					<table>
+						<tr>
+							<td style="width: 40px">
 								<img src="{{i.image}}" style="height: 25px; width: 25px;" class="person-image">
-							</ons-col>
-							<ons-col class="person-name" ng-click="newMessage(i.nombre)">
+							</td>
+							<td class="person-name" ng-click="newMessage(i.nombre)">
 								{{i.nombre}}
-							</ons-col>
-						</ons-row>
+							</td>
+						</tr>
+					</table>
 					</ons-list-item>
 				</ons-list>
 			</ons-page>
@@ -211,12 +215,13 @@
 
 						<!--<div id="ticketbox"></div>-->
 						<ons-list-item modifier="chevron" class="item" ng-repeat="item in items | filter : entradaTicket" ng-click="showTicket(item)">
-							<ons-row>
-								<ons-col width="60px">
+						<table>
+							<tr>
+								<td style="width: 60px">
 									<div class="item-thum"><img style="height: 50px; width: 50px;" src="{{item.thum}}"/>
 									</div>
-								</ons-col>
-								<ons-col>
+								</td>
+								<td>
 									<header>
 										<span class="item-title">{{item.tipo}}</span>
 										<span class="item-label">{{item.fecha}}</span>
@@ -224,8 +229,9 @@
 									<p class="item-desc">
 										{{item.problema}}
 									</p>
-								</ons-col>
-							</ons-row>
+								</td>
+							</tr>
+						</table>
 						</ons-list-item>
 					</ons-list>
 				</ons-page>
@@ -531,8 +537,9 @@
 				<br>
 				<ons-list modifier="inset" style="margin-top: 10px">
 					<ons-list-item class="item">
-						<ons-row>
-							<ons-col>
+					<table>
+						<tr>
+							<td>
 								<header>
 									<span class="item-title">{{item.title}}</span>
 									<span class="item-label">{{item.name}}</span>
@@ -541,8 +548,9 @@
 									Porcentaje: {{item.percentcomplete}}
 								</p>
 								<span class="item-desc">Prioridad:{{item.priority}}</span>
-							</ons-col>
-						</ons-row>
+							</td>
+						</tr>
+					</table>
 					</ons-list-item>
 
 					<ons-list-item modifier="chevron" ng-click="doSomething()">
@@ -604,10 +612,7 @@
 							</ons-row>
 						</ons-list-item>
 					</ons-list>-->
-					
-      <div class="row" ng-repeat="name in names">
-        <div class="col s12 m7">
-          <div class="card">
+          <div class="card"ng-repeat="name in names">
             <div class="card-image">
               <img src="{{name.thum}}">
               <span class="card-title">{{name.asunto}}</span>
@@ -619,8 +624,6 @@
               <a ng-click="showCom(name)">Más información ...</a>
             </div>
           </div>
-        </div>
-      </div>
             
 				</ons-page>
 			</ons-navigator>
@@ -641,11 +644,12 @@
 
 				<ons-list modifier="inset" style="margin-top: 10px">
 					<ons-list-item class="item">
-						<ons-row>
-							<ons-col width="60px">
+					<table>
+						<tr>
+							<td  style="width: 60px">
 								<div class="item-thum"><img src="{{com.thum}}" style="height: 60px; width: 60px; border-radius: 30px" /></div>
-							</ons-col>
-							<ons-col>
+							</td>
+							<td>
 								<header>
 									<span class="item-title">{{com.asunto}}</span>
 									<span class="item-label">{{com.fecha}}</span>
@@ -653,8 +657,9 @@
 								<p class="item-desc">
 									{{com.area}}
 								</p>
-							</ons-col>
-						</ons-row>
+							</td>
+						</tr>
+					</table>
 					</ons-list-item>
 
 					<ons-list-item modifier="chevron" ng-click="ons.navigator.pushPage('perfil.html',{animation:'fade'})">
