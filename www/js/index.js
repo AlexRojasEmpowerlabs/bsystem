@@ -1,4 +1,5 @@
-var user = "JoseRojas";
+var user = "nouser";
+var target = '';
 var misDatos = {};
 var Clientes = {};
 var Contactos = {};
@@ -8,34 +9,102 @@ var selectedBloc;
 var selectedPap;
 var selectedTicket = {};
 var selectedCom = {};
+var selectedConver = '';
+var selectedPara = '';
 var todos = {};
 var People = "[]";
 var d = new Date();
 var myProfile = "[]";
 selectedChat = {};
-var module = ons.bootstrap('my-app', ['onsen']);
+var conn;
+var module = ons.bootstrap('my-app', ['onsen'], ['ngWebsocket']);
 
 module.controller('BodyController', function($scope) {
 
-		ons.ready(function() {
-          // Init code here
-        });
+	ons.ready(function() {
+		// Init code here
+
+		conver = function(nombre, nombre2) {
+			//alert(''+nombre);
+			selectedConver = nombre;
+			selectedPara = nombre2;
+		};
+		conn = new WebSocket('ws://alexrojas.cloudapp.net:9000');
+		conn.onopen = function(e) {
+			console.log("Connection established!" + e);
+		};
+		conn.onmessage = function(e) {
+			//console.log(e.data);
+			$scope.mensajesSocket = JSON.parse(e.data);
+			json = jQuery.parseJSON(e.data);
+			//var text = $('#mensajes').val();
+			var text = "";
+
+			if (json.type === "send") {
+				text = "<ul>";
+				$.each(json.chats, function(index, value) {
+					clase = 'derecha';
+					if (value.from !== user)
+						clase = "izquierda";
+					else
+						$('#' + json.target).text("0");
+
+					text += "<li class='collection-item " + clase + "'>" + value.message + "</li>";
+				});
+				text += "</ul>";
+				$('#mensajes').html(text);
+				$('#' + json.target).text("1");
+
+				var element = document.getElementById("mensajes");
+				element.scrollTop = element.scrollHeight;
+			} else {
+				if (json.type === "getChats") {
+					$.each(json.chats, function(index, value) {
+
+						value.who2 = value.who.replace("-", " ").replace(user, " ");
+
+						text += '<li class="collection-item" onclick="ons.navigator.pushPage(\'chats.html\');conver(\'' + value.who + '\',\'' + value.who2 + '\')">' + value.who2 + "<div class='right'><span id='" + value.who + "' class='notification'>0</span></div></li>";
+
+					});
+
+					$('#chats-container').append(text);
+				} else {
+					if (json.type === "getConver") {
+						text = "<ul>";
+						$.each(json.chats, function(index, value) {
+							clase = 'derecha';
+							if (value.from !== user)
+								clase = "izquierda";
+
+							text += "<li class='collection-item " + clase + "'>" + value.message + "</li>";
+						});
+						text += "</ul>";
+						$('#mensajes').html(text);
+
+						var element = document.getElementById("mensajes");
+						element.scrollTop = element.scrollHeight;
+
+					}
+				}
+			}
+		};
+	});
 });
 
 module.controller('PrincipalController', function($scope, $blocsJSON, $http) {
 	//myFunction();
+	if (user == "nouser") {
+		$scope.fondo.loadPage('login2.html');
+	}
 	$scope.target = '';
 	switch($scope.tope.getActiveTabIndex()) {
 	case 1:
-		$scope.target = "?target=Curso";
-		break;
-	case 2:
 		$scope.target = "?target=YouTube";
 		break;
-	case 3:
+	case 2:
 		$scope.target = "?target=Presentación";
 		break;
-	case 4:
+	case 3:
 		$scope.target = "?target=PDF";
 		break;
 	default:
@@ -83,9 +152,9 @@ module.controller('VideoController', function($scope) {
 	video = videos[0];
 
 	video.src = 'http://www.youtube.com/embed/' + $scope.urlVideo;
-	$scope.opciones=function(){
-			$scope.tope.loadPage("inicio.html");
-		
+	$scope.opciones = function() {
+		$scope.tope.loadPage("inicio.html");
+
 	};
 });
 
@@ -94,9 +163,9 @@ module.controller('PDFController', function($scope) {
 	pdfs = document.querySelectorAll("iframe");
 	pdf = pdfs[0];
 	pdf.src = 'http://docs.google.com/gview?url=' + $scope.source.More_information + '&embedded=true';
-	$scope.opciones=function(){
-			$scope.tope.loadPage("inicio.html");
-		
+	$scope.opciones = function() {
+		$scope.tope.loadPage("inicio.html");
+
 	};
 });
 
@@ -105,13 +174,16 @@ module.controller('PresentationController', function($scope) {
 	pres = document.querySelectorAll("iframe");
 	pre = pres[0];
 	pre.src = 'http://docs.google.com/gview?url=' + $scope.source.Url + '&embedded=true';
-	$scope.opciones=function(){
-			$scope.tope.loadPage("inicio.html");
-		
+	$scope.opciones = function() {
+		$scope.tope.loadPage("inicio.html");
+
 	};
 });
 
 module.controller('ClientesController', function($scope, $http) {
+	if (user == "nouser") {
+		$scope.fondo.loadPage('login2.html');
+	}
 	$scope.Clientes = Clientes;
 	$http.get('http://empowerlabs.com/proyectos/trackersAPI/BSystem/SalesTracker/clientes.php').success(function(data) {
 		$scope.Clientes = data;
@@ -133,6 +205,9 @@ module.controller('VentasController', function($scope, $http) {
 });
 
 module.controller('PapController', function($scope, $http) {
+	if (user == "nouser") {
+		$scope.fondo.loadPage('login2.html');
+	}
 	$scope.Padres = Padres;
 	$http.get('http://empowerlabs.com/proyectos/trackersAPI/BSystem/PAP/padres.php').success(function(data) {
 		$scope.Padres = data;
@@ -155,14 +230,36 @@ module.controller('SelectedPapController', function($scope) {
 });
 
 module.controller('MyController', function($scope, $myService) {
-	$scope.hidePopover = function() {
+	$scope.hidePopover = function(param) {
 		$scope.popover = $myService.getPopover();
+		//alert('hey, myVar has changed!   '+$myService.getTarget());
+		fitro = "";
+		switch(param) {
+		case 1:
+			fitro = user;
+			break;
+		case 2:
+			fitro = '';
+			break;
+		case 3:
+			fitro = '!100';
+			break;
+		case 4:
+			fitro = '100';
+			break;
+		}
+		//$('#enter').val(fitro);
+		$myService.setTarget(fitro);
+		$scope.modelo = $myService.getModel();
+		$scope.modelo.entradaTicket = fitro;
 		$scope.popover.hide();
 	};
 });
 
 module.service("$myService", function() {
 	var sharedPopover;
+	var sharedTarget;
+	var sharedModel;
 
 	var setPopover = function(pop) {
 		sharedPopover = pop;
@@ -172,18 +269,44 @@ module.service("$myService", function() {
 		return sharedPopover;
 	};
 
+	var setTarget = function(newtarget) {
+		sharedTarget = newtarget;
+	};
+
+	var getTarget = function() {
+		return sharedTarget;
+	};
+
+	var setModel = function(mymodel) {
+		sharedModel = mymodel;
+	};
+
+	var getModel = function() {
+		return sharedModel;
+	};
+
 	return {
 		setPopover : setPopover,
 		getPopover : getPopover,
+		setTarget : setTarget,
+		getTarget : getTarget,
+		setModel : setModel,
+		getModel : getModel,
 	};
 });
 
 module.controller('TicketsController', function($scope, $dataTickets, $http, $myService) {
+
+	if (user == "nouser") {
+		$scope.fondo.loadPage('login2.html');
+	}
 	$scope.items = todos;
 	ons.createPopover('popover.html').then(function(popover) {
 		$scope.popover = popover;
 		$myService.setPopover($scope.popover);
 	});
+
+	$myService.setModel($scope);
 	$http.get('http://empowerlabs.com/proyectos/trackersAPI/EmpowerLabsIntra/tickettracker/todos.php').success(function(data, status, headers, config) {
 
 		data.reverse();
@@ -193,6 +316,7 @@ module.controller('TicketsController', function($scope, $dataTickets, $http, $my
 	});
 	$scope.showTicket = function(item) {
 		$dataTickets.selectedItem = item;
+		//$scope.entradaTicket=$myService.getTarget();
 		$scope.ons.navigator.pushPage('ticket.html');
 	};
 });
@@ -209,6 +333,10 @@ module.controller('TicketIndividualController', function($scope, $dataTickets) {
 });
 
 module.controller('ECommunicator', function($scope, $http) {
+
+	if (user == "nouser") {
+		$scope.fondo.loadPage('login2.html');
+	}
 	$http.get("http://empowerlabs.com/intellibanks/data/EmpowerLabsIntra/DBTXTjson.php").success(function(response) {
 		$scope.names = response.arr;
 	});
@@ -231,122 +359,100 @@ module.controller('DetailComunicadoController', function($scope) {
 
 });
 
-module.controller('MensajeController', function($scope, $timeout, $http) {
-
+module.controller('MyChatsController', function($scope) {
 	if (user == "nouser") {
-		menu.setMainPage('login2.html');
+		$scope.fondo.loadPage('login2.html');
 	}
-	$scope.timeInMs = 0;
-	$scope.res = {};
-	$scope.mensajeBox = {};
-	$scope.size = 0;
-	$scope.previa = selectedChat;
-	$scope.getMensajes = function() {
-		$http.get('http://alexrojas.cloudapp.net/web/chat/getChat.php?chat=' + selectedChat.who).success(function(data) {
-			if ($scope.size == data.detail.length) {
-
-			} else {
-
-				for ( i = 0; i < data.detail.length; i++) {
-					if (data.detail[i].from == user)
-						data.detail[i].clase = "derecha";
-					else
-						data.detail[i].clase = "izquierda";
-				}
-				$scope.res = data.detail.reverse();
-				$scope.size = $scope.res.length;
-			}
-
-		});
+	$scope.obtener = function() {
+		conn.send(JSON.stringify({
+			"type" : "getChats",
+			"who" : user
+		}));
 	};
-	$scope.getMensajes();
-	var countUp = function() {
-		$scope.timeInMs += 500;
-		$scope.getMensajes();
-		$timeout(countUp, 500);
+	$scope.nuevoMensaje=function(){
+		$scope.ons.navigator.pushPage('nuevoMensaje.html',{animation:'lift'});
 	};
-	$timeout(countUp, 500);
-	$scope.enviarMensaje = function() {
-		//$scope.ons.notification.alert({title:'EmpowerLabsIntra', message:'Enviando ...'});
-		$http.get('http://alexrojas.cloudapp.net/web/chat/send.php?from=' + user + '&to=' + selectedChat.who2 + '&message=' + $scope.mensajeBox.message + '&who=' + selectedChat.who + '&date=' + d.getFullYear() + '-' + d.getMonth() + '-' + d.getDate() + '&time=' + d.getHours() + '-' + d.getMinutes() + '-' + d.getSeconds()).success(function(data) {
-			$scope.getMensajes();
-			$scope.mensajeBox = {};
+	$scope.obtener();
+});
 
-		});
+module.controller('ChatController', function($scope) {
+	$scope.conver = selectedConver;
+	$('#' + $scope.conver).text("0");
+	$scope.para = selectedPara;
+	$scope.obtener = function() {
+		conn.send(JSON.stringify({
+			"type" : "getConver",
+			"chatTarget" : $scope.conver
+		}));
 	};
-}).config(['$httpProvider',
-function($httpProvider) {
-	$httpProvider.defaults.timeout = 5000;
-}]);
+	$scope.obtener();
 
-module.controller('ChatsController', function($scope, $timeout, $http) {
+	$scope.enviar = function() {
 
-	if (user == "nouser") {
-		menu.setMainPage('login2.html');
-	}
-	$scope.res = {};
-	$scope.mensajeBox = {};
-	$scope.size2 = 0;
-
-	$scope.getChats = function() {
-		$http.get('http://alexrojas.cloudapp.net/web/chat/myChats.php?me=' + user).success(function(data) {
-			if ($scope.size == data.detail.length) {
-
-			} else {
-				for ( i = 0; i < data.detail.length; i++) {
-					data.detail[i].who2 = data.detail[i].who.replace("-", " ").replace(user, " ");
-				}
-				$scope.res = data.detail.reverse();
-				$scope.size = $scope.res.length;
-			}
-
-		});
+		conn.send(JSON.stringify({
+			"message" : '' + $('#entrada').val(),
+			"chatTarget" : selectedConver,
+			"from" : user,
+			"to" : selectedPara,
+			"time" : "12-47-1",
+			"date" : "2015-6-27",
+			"type" : "send"
+		}));
+		$('#entrada').val("");
 	};
-	$scope.getChats();
-	var countUp2 = function() {
-		$scope.getChats();
-		$timeout(countUp2, 500);
-	};
-	$timeout(countUp2, 500);
-	$scope.nuevoMensaje = function() {
-		$scope.ons.navigator.pushPage('nuevoMensaje.html', {
-			animation : 'lift'
-		});
-	};
-	$scope.showChat = function(r) {
-		selectedChat = r;
-		$scope.ons.navigator.pushPage('mensajes.html');
-	};
-}).config(['$httpProvider',
-function($httpProvider) {
-	$httpProvider.defaults.timeout = 5000;
-}]);
+});
 
 module.controller('newMessageController', function($scope, $dataPeople, $http) {
-	$http.get('http://empowerlabs.com/proyectos/trackersAPI/getUsers.php').success(function(data, status, headers, config) {
-		//$scope.ons.notification.alert({message: ""+data.firstname,title: "intellibanks"});
-		$dataPeople = data;
-		People = data;
-		$scope.data = $dataPeople;
-		$scope.newMessage = function(i) {
-			selectedUser = i;
-			arr = [user, selectedUser];
-			arr.sort();
-			arr.reverse();
-			$http.get('http://alexrojas.cloudapp.net/web/chat/newChat.php?from=' + user + '&to=' + selectedUser + '&who=' + arr[0] + '-' + arr[1] + '&message=' + user + ' ha iniciado chat' + '&date=' + d.getFullYear() + '-' + d.getMonth() + '-' + d.getDate() + '&time=' + d.getHours() + '-' + d.getMinutes() + '-' + d.getSeconds()).success(function(data, status, headers, config) {
-
-				$scope.ons.navigator.popPage('chats.html', {
-					title : i
-				});
-			});
-		};
-	}).error(function(data, status, headers, config) {
-
+	$http.get('http://empowerlabs.com/proyectos/helpDesk/getUsers.php').
+  success(function(data, status, headers, config) {
+  	//$scope.ons.notification.alert({message: ""+data.firstname,title: "intellibanks"});
+    $dataPeople=data;
+    People=data;
+    $scope.data = $dataPeople;
+    $scope.newMessage=function(i){
+    	selectedUser=i;
+    	arr=[user,selectedUser];
+    	arr.sort();
+    	arr.reverse();
+    	$http.get('http://alexrojas.cloudapp.net/web/chat/newChat.php?from='+user+
+    	'&to='+selectedUser+
+    	'&who='+arr[0]+'-'+arr[1]+'&message='+user+' ha iniciado chat'+
+		'&date='+d.getFullYear()+'-'+d.getMonth()+'-'+d.getDate()+
+		'&time='+d.getHours()+'-'+d.getMinutes()+'-'+d.getSeconds()).
+	success(function(data, status, headers, config){
+		
+    	$scope.ons.navigator.popPage('myChats.html', {title : i});
 	});
-});
-module.factory('$dataPeople', function() {
-	var dataPeople;
-	dataPeople = People;
+    	};
+  }).
+  error(function(data, status, headers, config) {
+  	
+  });
+  });
+   module.factory('$dataPeople', function() {
+      var dataPeople;
+      		dataPeople=People;
+      
+      return dataPeople;
+  });
 
-	return dataPeople;
+
+module.controller('LoginController', function($scope, $http) {
+	$scope.formLogin = {};
+	$scope.login = function() {
+		$http.get('http://empowerlabs.com/landing-pages/Martin/Usuarios/ingreso.php?nombre=' + $scope.formLogin.nombre + '&pass=' + $scope.formLogin.pass).success(function(data, status, headers, config) {
+			if (data.code == "OK") {
+				user = data.user;
+				//ons.notification.alert({message: ''+data.respuesta, title:"Intellibanks"});
+
+				$scope.fondo.loadPage('mbloc.html');
+			} else {
+				ons.notification.alert({
+					message : '' + data.respuesta,
+					title : "Intellibanks"
+				});
+			}
+		});
+	};
+
 });
